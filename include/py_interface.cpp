@@ -85,6 +85,7 @@ PYBIND11_MODULE(mamba_api, m) {
         .def_readwrite("dry_run", &Context::dry_run)
         .def_readwrite("ssl_verify", &Context::ssl_verify)
         .def_readonly("sig_interrupt", &Context::sig_interrupt)
+        .def_readwrite("proxies", &Context::proxies)
         .def("set_verbosity", &Context::set_verbosity)
     ;
 

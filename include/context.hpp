@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 namespace mamba
 {
@@ -30,6 +31,7 @@ namespace mamba
 
         bool sig_interrupt = false;
 
+        std::unordered_map<std::string, std::string> proxies;
         // ssl verify can be either an empty string (regular SSL verification),
         // the string "<false>" to indicate no SSL verification, or a path to 
         // a directory with cert files, or a cert file.
@@ -44,6 +46,8 @@ namespace mamba
 
         Context(Context&&) = delete;
         Context& operator=(Context&&) = delete;
+
+        const char* proxy_match(const std::string& url) const;
 
     private:
 

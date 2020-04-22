@@ -35,6 +35,16 @@ namespace mamba
         curl_easy_setopt(m_target, CURLOPT_HTTPHEADER, m_headers);
         curl_easy_setopt(m_target, CURLOPT_VERBOSE, Context::instance().verbosity != 0);
 
+        // Proxy server
+
+        const char* proxy = Context::instance().proxy_match(url);
+        if (proxy)
+        {
+            curl_easy_setopt(m_target, CURLOPT_PROXY, proxy);
+        }
+
+        // SSL verification settings
+
         std::string& ssl_verify = Context::instance().ssl_verify;
 
         if (!ssl_verify.size() && std::getenv("REQUESTS_CA_BUNDLE") != nullptr)
@@ -48,6 +58,11 @@ namespace mamba
             {
                 curl_easy_setopt(m_target, CURLOPT_SSL_VERIFYPEER, 0L);
                 curl_easy_setopt(m_target, CURLOPT_SSL_VERIFYHOST, 0L);
+                if (proxy)
+                {
+                    curl_easy_setopt(m_target, CURLOPT_PROXY_SSL_VERIFYPEER, 0L);
+                    curl_easy_setopt(m_target, CURLOPT_PROXY_SSL_VERIFYHOST, 0L);
+                }
             }
             else
             {
@@ -57,7 +72,29 @@ namespace mamba
                 }
                 else
                 {
-                    curl_easy_setopt(m_target, CURLOPT_CAINFO, ssl_verify.c_str());
+                    // Unsure about what should happen with proxy vs. connection ...
+                    if (fs::is_directory(ssl_verify))
+                    {
+                        if (proxy)
+                        {
+                            curl_easy_setopt(m_target, CURLOPT_PROXY_CAPATH, ssl_verify.c_str());
+                        }
+                        else
+                        {
+                            curl_easy_setopt(m_target, CURLOPT_CAPATH, ssl_verify.c_str());
+                        }
+                    }
+                    else
+                    {
+                        if (proxy)
+                        {
+                            curl_easy_setopt(m_target, CURLOPT_PROXY_CAINFO, ssl_verify.c_str());
+                        }
+                        else
+                        {
+                            curl_easy_setopt(m_target, CURLOPT_CAINFO, ssl_verify.c_str());
+                        }
+                    }
                 }
             }
         }

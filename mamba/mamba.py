@@ -94,7 +94,13 @@ def init_api_context():
     if context.ssl_verify == False:
         api_ctx.ssl_verify = "<false>"
     elif context.ssl_verify is not True:
-        api_ctx.ssl_verify = context.ssl_verify 
+        api_ctx.ssl_verify = context.ssl_verify
+
+    # we have to convert a frozendict here...
+    proxies = {}
+    for k, v in context.proxy_servers.items():
+        proxies[k] = v
+    api_ctx.proxies = proxies
 
 class MambaException(Exception):
     pass

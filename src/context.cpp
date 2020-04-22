@@ -2,6 +2,7 @@
 
 // TODO: remove minilog
 #include "minilog.hpp"
+#include "util.hpp"
 #include "context.hpp"
 
 namespace mamba
@@ -43,4 +44,33 @@ namespace mamba
 
         this->verbosity = lvl;
     }
+
+    const char* Context::proxy_match(const std::string& url) const
+    {
+        if (proxies.size() == 0)
+        {
+            return nullptr;
+        }
+
+        std::size_t max_match = 0;
+        const char* match;
+        for (auto& p : proxies)
+        {
+            if (starts_with(url, p.first))
+            {
+                auto match_size = p.first.size();
+                if (match_size > max_match)
+                {
+                    match = p.second.c_str();
+                    max_match = match_size;
+                }
+            }
+        }
+        if (max_match != 0)
+        {
+            return match;
+        }
+        return nullptr;
+    }
+
 }
