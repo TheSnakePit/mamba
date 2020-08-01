@@ -38,6 +38,15 @@ def load_channel(subdir_data, result_container):
 def get_index(channel_urls=(), prepend=True, platform=None,
               use_local=False, use_cache=False, unknown=None, prefix=None,
               repodata_fn="repodata.json"):
+    if platform is None:
+        platform = ''
+    return api.get_index(channel_urls, prepend, platform,
+            use_local, use_cache, unknown, prefix, repodata_fn)
+
+"""
+def get_index(channel_urls=(), prepend=True, platform=None,
+              use_local=False, use_cache=False, unknown=None, prefix=None,
+              repodata_fn="repodata.json"):
 
     real_urls = calculate_channel_urls(channel_urls, prepend, platform, use_local)
     check_whitelist(real_urls)
@@ -72,7 +81,7 @@ def get_index(channel_urls=(), prepend=True, platform=None,
         raise RuntimeError("Error downloading repodata.")
 
     return index
-
+"""
 def init_api_context(use_mamba_experimental=False):
     api_ctx = api.Context()
 

@@ -131,11 +131,10 @@ set(MAMBA_SOURCES
     ${CMAKE_SOURCE_DIR}/src/context.cpp
     ${CMAKE_SOURCE_DIR}/src/environments_manager.cpp
     ${CMAKE_SOURCE_DIR}/src/fetch.cpp
-    ${CMAKE_SOURCE_DIR}/src/transaction_context.cpp
-    ${CMAKE_SOURCE_DIR}/src/link.cpp
     ${CMAKE_SOURCE_DIR}/src/history.cpp
+    ${CMAKE_SOURCE_DIR}/src/index.cpp
+    ${CMAKE_SOURCE_DIR}/src/link.cpp
     ${CMAKE_SOURCE_DIR}/src/match_spec.cpp
-    ${CMAKE_SOURCE_DIR}/src/url.cpp
     ${CMAKE_SOURCE_DIR}/src/output.cpp
     ${CMAKE_SOURCE_DIR}/src/package_handling.cpp
     ${CMAKE_SOURCE_DIR}/src/package_cache.cpp
@@ -149,6 +148,8 @@ set(MAMBA_SOURCES
     ${CMAKE_SOURCE_DIR}/src/subdirdata.cpp
     ${CMAKE_SOURCE_DIR}/src/thread_utils.cpp
     ${CMAKE_SOURCE_DIR}/src/transaction.cpp
+    ${CMAKE_SOURCE_DIR}/src/transaction_context.cpp
+    ${CMAKE_SOURCE_DIR}/src/url.cpp
     ${CMAKE_SOURCE_DIR}/src/util.cpp
     ${CMAKE_SOURCE_DIR}/src/validate.cpp
     ${CMAKE_SOURCE_DIR}/src/version.cpp

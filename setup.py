@@ -84,6 +84,7 @@ ext_modules = [
             'src/context.cpp',
             'src/fetch.cpp',
             'src/history.cpp',
+            'src/index.cpp',
             'src/match_spec.cpp',
             'src/output.cpp',
             'src/package_handling.cpp',
