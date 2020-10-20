@@ -19,6 +19,7 @@
 #include "mamba/util.hpp"
 
 #include "thirdparty/termcolor.hpp"
+#include "cpp-terminal/terminal.h"
 
 namespace mamba
 {
@@ -492,38 +493,39 @@ namespace mamba
         {
             return true;
         }
-        while (!is_sig_interrupted())
+
+        std::stringstream prompt_string;
+        prompt_string << message << ": ";
+        if (fallback == 'n')
         {
-            std::cout << message << ": ";
-            if (fallback == 'n')
-            {
-                std::cout << "[y/N] ";
-            }
-            else if (fallback == 'y')
-            {
-                std::cout << "[Y/n] ";
-            }
-            else
-            {
-                std::cout << "[y/n] ";
-            }
-            std::string response;
-            std::getline(std::cin, response);
-            if (response.size() == 0)
-            {
-                // enter pressed
-                response = std::string(1, fallback);
+            prompt_string << "[y/N] ";
+        }
+        else if (fallback == 'y')
+        {
+            prompt_string << "[Y/n] ";
+        }
+        else
+        {
+            prompt_string << "[y/n] ";
+        }
+
+        Term::Terminal term(true);
+        while (true)
+        {
+            std::string response = Term::prompt(term, prompt_string.str());
+
+            if (response.size() == 1 && (response[0] == CTRL_KEY('d') || response[0] == CTRL_KEY('c'))) {
+                return false;
             }
             if (response.compare("y") == 0 || response.compare("Y") == 0)
             {
-                return true && !is_sig_interrupted();
+                return true;
             }
             if (response.compare("n") == 0 || response.compare("N") == 0)
             {
                 return false;
             }
         }
-        return false;
     }
 
     ProgressProxy Console::add_progress_bar(const std::string& name)

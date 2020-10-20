@@ -67,6 +67,7 @@ endif()
 
 find_package(Threads REQUIRED)
 find_package(nlohmann_json REQUIRED)
+find_package(cpp-terminal REQUIRED)
 
 message("Found libraries: ${MAMBA_DEPENDENCIES_LIBS}")
 
