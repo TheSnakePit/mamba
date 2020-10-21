@@ -40,7 +40,7 @@ jobs:
           export MAMBA_ROOT_PREFIX=~/micromamba
           export MAMBA_EXE=$(pwd)/micromamba
           . $MAMBA_ROOT_PREFIX/etc/profile.d/mamba.sh
-          micromamba create -y -p ~/build_env pybind11 libsolv libarchive libcurl nlohmann_json cxx-compiler cmake gtest cpp-filesystem "cpp-tabulate>=1.2" yaml-cpp cli11 -c conda-forge
+          micromamba create -y -p ~/build_env pybind11 libsolv libarchive libcurl nlohmann_json cxx-compiler cmake gtest cpp-filesystem "cpp-tabulate>=1.2" cpp-terminal yaml-cpp cli11 -c conda-forge
         env:
           PYTHON_VERSION: ${{ matrix.python-version }}
       - name: build tests

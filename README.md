@@ -139,7 +139,7 @@ For more instructions (including OS X) check out https://gist.github.com/wolfv/f
 
 Make sure to have the following requirements in your conda environment:
 
-`mamba install cmake compilers pybind11 libsolv libarchive libcurl nlohmann_json pip cpp-filesystem yaml-cpp -c conda-forge`
+`mamba install cmake compilers pybind11 libsolv libarchive libcurl nlohmann_json pip cpp-filesystem yaml-cpp cpp-terminal -c conda-forge`
 
 If you build mamba in a different environment than base, you must also install conda in
 that environment:
