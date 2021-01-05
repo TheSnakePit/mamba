@@ -39,7 +39,7 @@ class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
     The purpose of this class is to postpone importing pybind11
     until it is actually installed, so that the ``get_include()``
-    method can be invoked. """
+    method can be invoked."""
 
     def __init__(self, user=False):
         self.user = user
@@ -81,7 +81,7 @@ else:
     CURL_LIB = "curl"
     CRYPTO_LIB = "crypto"
 
-libraries = ["archive", "solv", "solvext", "reproc++", CURL_LIB, CRYPTO_LIB]
+libraries = ["archive", "solv", "solvext", "reproc++", "zck", CURL_LIB, CRYPTO_LIB]
 if sys.platform == "win32":
     libraries.append("advapi32")
 
@@ -193,7 +193,7 @@ setup(
     long_description="A (hopefully faster) reimplementation of the slow bits of conda.",
     ext_modules=ext_modules,
     install_requires=["pybind11>=2.2"],
-    extras_require={"test": ["pytest"]},
+    extras_require={"test": ["pytest", "rangehttpserver"]},
     cmdclass={"build_ext": BuildExt},
     zip_safe=False,
 )

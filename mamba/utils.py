@@ -139,9 +139,10 @@ def load_channels(
     return index
 
 
-def init_api_context(use_mamba_experimental=False):
+def init_api_context(use_mamba_experimental=False, use_zchunk=False):
     api_ctx = api.Context()
 
+    api_ctx.use_zchunk = use_zchunk
     api_ctx.json = context.json
     api_ctx.dry_run = context.dry_run
     if context.json:

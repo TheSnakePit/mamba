@@ -49,7 +49,7 @@ namespace mamba
         MRepo create_repo(MPool& pool);
 
     private:
-        bool decompress();
+        bool decompress(bool is_zchunk);
         void create_target(nlohmann::json& mod_etag);
         std::size_t get_cache_control_max_age(const std::string& val);
         nlohmann::json read_mod_and_etag();

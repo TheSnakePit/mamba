@@ -118,6 +118,7 @@ def specs_from_args(args, json=False):
 
 
 use_mamba_experimental = False
+use_zchunk = False
 
 
 def handle_txn(unlink_link_transaction, prefix, args, newenv, remove_op=False):
@@ -278,7 +279,7 @@ def install(args, parser, command="install"):
     context.validate_configuration()
     check_non_admin()
 
-    init_api_context(use_mamba_experimental)
+    init_api_context(use_mamba_experimental, use_zchunk)
 
     newenv = bool(command == "create")
     isinstall = bool(command == "install")
@@ -806,6 +807,11 @@ def _wrapped_main(*args, **kwargs):
         args = args + ("-h",)
 
     argv = list(args)
+
+    if "--zchunk" in argv:
+        global use_zchunk
+        use_zchunk = True
+        argv.remove("--zchunk")
 
     if "--mamba-experimental" in argv:
         global use_mamba_experimental
